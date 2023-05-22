@@ -28,13 +28,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Move();
-        Jump();
+        MoveAndJump();
         CameraMove();
         characterController.Move(moveDirection * Time.deltaTime);
     }
-
-    void Move()
+    
+    void MoveAndJump()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
@@ -42,12 +41,9 @@ public class PlayerMovement : MonoBehaviour
         float curSpeedX = canMove ? walkingSpeed * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? walkingSpeed * Input.GetAxis("Horizontal") : 0;
 
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
-    }
-
-    void Jump()
-    {
         float movementDirectionY = moveDirection.y;
+
+        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
             moveDirection.y = jumpSpeed;
