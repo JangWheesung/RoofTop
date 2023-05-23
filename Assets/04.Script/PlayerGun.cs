@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
 {
-    float magazine;
-    readonly float maxBullets;
-    float nowBullet;
+    [SerializeField] float magazine;
+    [SerializeField] float maxBullets = 30;
+    [SerializeField] float nowBullet;
 
-    float shootDelayTime;
-    float reloadTime;
+    [SerializeField] float shootDelayTime = 0.1f;
+    [SerializeField] float reloadTime = 2f;
 
-    bool canShoot;
-    bool reloading;
+    bool canShoot = true;
+    bool reloading = false;
 
     Ray ray;
     RaycastHit hit;
 
     Camera cam;
+    Vector2 ScreenCenter;
 
     void Awake()
     {
         cam = Camera.main;
+        nowBullet = maxBullets;
+        ScreenCenter = new Vector2(cam.pixelWidth / 2, cam.pixelHeight / 2);
     }
 
     void Update()
     {
-
+        Shoot();
+        Animing();
+        ReLoad();
     }
 
     void Shoot()
     {
-        if (Input.GetButton("Fire1")  && canShoot && !reloading)
+        if (Input.GetButton("Fire1") && nowBullet > 0 && canShoot && !reloading)
         {
             GunRay();
 
@@ -43,17 +48,23 @@ public class PlayerGun : MonoBehaviour
 
     void GunRay()
     {
-        ray = new Ray(transform.position, cam.ScreenPointToRay(Input.mousePosition).direction);
-
-        if (Physics.Raycast(ray, out hit) && hit.transform.tag == "Enemy")
+        //ray = new Ray(transform.position, cam.ScreenPointToRay(Input.mousePosition).direction);
+        //ray = cam.ScreenPointToRay(ScreenCenter);
+        //Debug.DrawRay(ray);
+        ray = cam.ScreenPointToRay(ScreenCenter);
+        Debug.Log(Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Enemy")));
+        Debug.DrawRay(transform.position, -transform.right, Color.red, 100);
+        
+        if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Enemy")))
         {
             //적 체력 가져와서 죽여
+            hit.transform.GetComponent<Living>().OnDmage(1);
         }
     }
 
     void Animing()
     {
-        //if(Input.GetButtonDown("Fire1"))  
+        //if(Input.GetButtonDown("Fire1"))
     }
 
     void ReLoad()
@@ -73,7 +84,7 @@ public class PlayerGun : MonoBehaviour
 
     IEnumerator ReloadDelay(float time)
     {
-        reloading = false;
+        reloading = true;
         yield return new WaitForSeconds(time);
 
         magazine -= (maxBullets - nowBullet);
@@ -82,6 +93,6 @@ public class PlayerGun : MonoBehaviour
         else
             nowBullet = magazine;
 
-        reloading = true;
+        reloading = false;
     }
 }

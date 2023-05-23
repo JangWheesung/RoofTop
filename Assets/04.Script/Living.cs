@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Living : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected float health;
+
+    public virtual void OnDmage(float dmg)
     {
-        
+        health -= dmg;
+
+        if (health <= 0)
+            Die();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected virtual void Die() { }
 }

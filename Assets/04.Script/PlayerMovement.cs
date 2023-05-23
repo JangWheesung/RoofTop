@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (!characterController.isGrounded)
         {
-            Debug.Log("falling...");
             moveDirection.y -= gravity * Time.deltaTime;
         }
     }
