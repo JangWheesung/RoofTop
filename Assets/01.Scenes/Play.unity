@@ -153,6 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df45ef6fc3b559f43a3aae5d0328b40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySponer: {fileID: 1718232300}
+  enemy: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+  wave: 0
+  isWaving: 0
+  enemyCount: 0
 --- !u!114 &283571982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15588,7 +15593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739622900}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.17, y: -0.22495726, z: 1.1596327}
+  m_LocalPosition: {x: 1.17, y: -0.292, z: 1.1596327}
   m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15611,7 +15616,7 @@ OffMeshLink:
   m_CostOverride: -1
   m_BiDirectional: 1
   m_Activated: 1
-  m_AutoUpdatePositions: 0
+  m_AutoUpdatePositions: 1
 --- !u!1 &755476759
 GameObject:
   m_ObjectHideFlags: 0
@@ -15912,14 +15917,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376525030}
-  m_LocalRotation: {x: 0.611775, y: -0.20028982, z: 0.1639246, w: 0.7474919}
+  m_LocalRotation: {x: 0.62088513, y: -0.19826688, z: 0.16636564, w: 0.7399422}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 78.596, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 80, y: -30, z: 0}
 --- !u!114 &1376525033
 MonoBehaviour:
   m_ObjectHideFlags: 0

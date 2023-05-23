@@ -16,6 +16,7 @@ public class ZombieHP : Living
 
     protected override void Die()
     {
+        WaveManager.instance.enemyCount--;
         Destroy(gameObject);
     }
 }

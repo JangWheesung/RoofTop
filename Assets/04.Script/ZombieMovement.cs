@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class ZombieMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
+    public float attack;
 
     private GameObject player;
     private Rigidbody rb;
@@ -26,5 +27,21 @@ public class ZombieMovement : MonoBehaviour
     void Movement()
     {
         agent.destination = player.transform.position;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            collision.transform.GetComponent<PlayerHP>().OnDmage(attack);
+            AttackDelay(1f);
+        }
+    }
+
+    IEnumerator AttackDelay(float time)
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(time);
+        agent.isStopped = false;
     }
 }

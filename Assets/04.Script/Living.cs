@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Living : MonoBehaviour
 {
-    [SerializeField] protected float health;
+    public float health;
 
     public virtual void OnDmage(float dmg)
     {
