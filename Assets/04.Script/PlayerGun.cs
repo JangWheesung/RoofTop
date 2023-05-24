@@ -14,7 +14,8 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] float reloadTime = 2f;
 
     [Header("particle")]
-    [SerializeField] ParticleSystem particle;
+    [SerializeField] ParticleSystem gunFireParticle;
+    [SerializeField] ParticleSystem gunSmokeParticle;
 
     bool canShoot = true;
     bool starthoot = true;
@@ -56,17 +57,23 @@ public class PlayerGun : MonoBehaviour
 
     void GunRay()
     {
-        //ray = new Ray(transform.position, cam.ScreenPointToRay(Input.mousePosition).direction);
-        //ray = cam.ScreenPointToRay(ScreenCenter);
-        //Debug.DrawRay(ray);
         ray = cam.ScreenPointToRay(ScreenCenter);
         Debug.DrawRay(transform.position, -transform.right, Color.red, 100);
-        
+
+        Quaternion thisRot = Quaternion.Euler(transform.parent.transform.eulerAngles.x - 180, transform.parent.parent.transform.eulerAngles.y, 0);
         if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Enemy")))
         {
             //적 체력 가져와서 죽여
             hit.transform.GetComponent<Living>().OnDmage(1);
+            SmokeManager.instance.PopSmoke(hit.point, thisRot);
+            //아마?
         }
+        else if (Physics.Raycast(ray, out hit, 100))
+        {
+            Debug.Log(hit);
+            SmokeManager.instance.PopSmoke(hit.point, thisRot);
+        }
+
     }
 
     void Animing()
@@ -74,13 +81,13 @@ public class PlayerGun : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && !reloading)
         {
             starthoot = true;
-            particle.Play();
+            gunFireParticle.Play();
             animator.SetBool("Shoot", true);
         }
         if (Input.GetButtonUp("Fire1") || nowBullet <= 0)
         {
             starthoot = false;
-            particle.Stop();
+            gunFireParticle.Stop();
             animator.SetBool("Shoot", false);
         }
     }
