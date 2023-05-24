@@ -10,12 +10,14 @@ public class ZombieMovement : MonoBehaviour
 
     private GameObject player;
     private Rigidbody rb;
+    private Animator animator;
     private NavMeshAgent agent;
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody>();
+        animator = gameObject.GetComponent<Animator>();
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
@@ -41,7 +43,9 @@ public class ZombieMovement : MonoBehaviour
     IEnumerator AttackDelay(float time)
     {
         agent.isStopped = true;
+        animator.SetBool("Attack", true);
         yield return new WaitForSeconds(time);
         agent.isStopped = false;
+        animator.SetBool("Attack", false);
     }
 }

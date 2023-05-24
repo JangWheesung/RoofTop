@@ -46,7 +46,9 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
-            moveDirection.y = jumpSpeed;
+        {
+            //moveDirection.y = jumpSpeed;
+        }
         else
             moveDirection.y = movementDirectionY;
 

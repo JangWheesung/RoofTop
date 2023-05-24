@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ZombieHP : Living
 {
+    private Animator animator;
+
     void Awake()
     {
-        
+        animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -17,6 +19,7 @@ public class ZombieHP : Living
     protected override void Die()
     {
         WaveManager.instance.enemyCount--;
-        Destroy(gameObject);
+        animator.SetTrigger("Die");
+        Destroy(gameObject, 2);
     }
 }

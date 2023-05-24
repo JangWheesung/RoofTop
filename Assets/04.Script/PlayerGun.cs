@@ -15,7 +15,6 @@ public class PlayerGun : MonoBehaviour
 
     [Header("Particle")]
     [SerializeField] ParticleSystem gunFireParticle;
-    [SerializeField] ParticleSystem gunSmokeParticle;
 
     [Header("Pooling")]
     [SerializeField] PoolingManager smokeManager;
