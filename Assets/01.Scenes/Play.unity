@@ -680,6 +680,8 @@ MonoBehaviour:
   reloadTime: 2
   gunFireParticle: {fileID: 463567714}
   gunSmokeParticle: {fileID: 0}
+  smokeManager: {fileID: 2122969066}
+  bloodManager: {fileID: 1156419526}
 --- !u!1 &445571602
 GameObject:
   m_ObjectHideFlags: 0
@@ -15806,7 +15808,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1156419525}
   - component: {fileID: 1156419526}
-  - component: {fileID: 1156419527}
   m_Layer: 0
   m_Name: BloodManager
   m_TagString: Untagged
@@ -15841,20 +15842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ad589d6b06065448bf9307d3b9b0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoke: {fileID: 100002, guid: 99c73c92ac40473459640b165473206f, type: 3}
+  smoke: {fileID: 1000013355911406, guid: d32aa916f50cac94db11e6f19821a58f, type: 3}
   smokeValue: 50
---- !u!114 &1156419527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1156419524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f884d1d5ad97521478f2f5d07a3e32bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1241711210
 MonoBehaviour:
   m_ObjectHideFlags: 0

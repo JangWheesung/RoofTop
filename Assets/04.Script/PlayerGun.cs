@@ -13,9 +13,13 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] float shootDelayTime = 0.1f;
     [SerializeField] float reloadTime = 2f;
 
-    [Header("particle")]
+    [Header("Particle")]
     [SerializeField] ParticleSystem gunFireParticle;
     [SerializeField] ParticleSystem gunSmokeParticle;
+
+    [Header("Pooling")]
+    [SerializeField] PoolingManager smokeManager;
+    [SerializeField] PoolingManager bloodManager;
 
     bool canShoot = true;
     bool starthoot = true;
@@ -65,13 +69,13 @@ public class PlayerGun : MonoBehaviour
         {
             //적 체력 가져와서 죽여
             hit.transform.GetComponent<Living>().OnDmage(1);
-            SmokeManager.instance.PopSmoke(hit.point, thisRot);
+            bloodManager.PopSmoke(hit.point, thisRot);
             //아마?
         }
         else if (Physics.Raycast(ray, out hit, 100))
         {
             Debug.Log(hit);
-            SmokeManager.instance.PopSmoke(hit.point, thisRot);
+            smokeManager.PopSmoke(hit.point, thisRot);
         }
 
     }
