@@ -1325,6 +1325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b1846c37c19e0448e20ddd08789e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxBulletLevel: []
+  magazineLevel: []
+  FirepowerLevel: []
 --- !u!1 &284337364
 GameObject:
   m_ObjectHideFlags: 0
