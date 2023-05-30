@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class ZombieMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float rangeRadiue;
     public float attack;
+    bool isAttacking;
 
     private GameObject player;
     private Rigidbody rb;
@@ -24,19 +26,24 @@ public class ZombieMovement : MonoBehaviour
     void Update()
     {
         Movement();
+        Attack();
     }
 
     void Movement()
     {
-        agent.destination = player.transform.position;
+        if(!isAttacking)
+            agent.destination = player.transform.position;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void Attack()
     {
-        if (collision.transform.tag == "Player")
+        Collider[] col = Physics.OverlapSphere(transform.position, rangeRadiue, LayerMask.GetMask("Player"));
+        if (col.Length > 0 && !isAttacking)
         {
-            collision.transform.GetComponent<PlayerHP>().OnDmage(attack);
-            AttackDelay(1f);
+            isAttacking = true;
+            player.transform.GetComponent<PlayerHP>().OnDmage(attack);
+            StopAllCoroutines();
+            StartCoroutine(AttackDelay(1f));
         }
     }
 
@@ -47,5 +54,6 @@ public class ZombieMovement : MonoBehaviour
         yield return new WaitForSeconds(time);
         agent.isStopped = false;
         animator.SetBool("Attack", false);
+        isAttacking = false;
     }
 }

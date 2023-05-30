@@ -1849,6 +1849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  rangeRadiue: 1.2
   attack: 0
 --- !u!114 &3288543898034727328
 MonoBehaviour:

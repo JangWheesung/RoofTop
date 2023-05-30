@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerGun : MonoBehaviour
 {
     [Header("Gun")]
-    [SerializeField] float magazine;
-    [SerializeField] float maxBullets = 30;
-    [SerializeField] float nowBullet;
+    public float magazine;
+    public float maxBullets = 30;
+    public float nowBullet;
 
     [Header("Value")]
     [SerializeField] float shootDelayTime = 0.1f;
