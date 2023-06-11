@@ -1849,7 +1849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  rangeRadiue: 1.2
+  rangeRadiue: 1.1
   attack: 0
 --- !u!114 &3288543898034727328
 MonoBehaviour:
@@ -1864,6 +1864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  giveMoney: 10
 --- !u!1 &4710940672626480558
 GameObject:
   m_ObjectHideFlags: 0

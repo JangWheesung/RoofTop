@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -8,13 +9,14 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] Transform enemySponer;
     [SerializeField] GameObject enemy;
-
-    public int wave = 0;
-    public bool isWaving;
+    [SerializeField] GameObject pressText;
 
     public float enemyCount = 10;
     float enemyAttack = 1;
     float enemyHp = 5;
+
+    public int wave = 0;
+    public bool isWaving;
 
     void Awake()
     {
@@ -30,6 +32,7 @@ public class WaveManager : MonoBehaviour
     private void LateUpdate()
     {
         isWaving = enemyCount <= 0 ? false : true;
+        pressText.SetActive(!isWaving);
     }
 
     void NextWave()

@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class ZombieHP : Living
 {
+    [SerializeField] private int giveMoney;
+
     private Animator animator;
     private NavMeshAgent agent;
     private CapsuleCollider capsuleCollider;
@@ -24,6 +26,7 @@ public class ZombieHP : Living
     protected override void Die()
     {
         WaveManager.instance.enemyCount--;
+        MoneyManager.instance.money += giveMoney;
         capsuleCollider.enabled = false;
         agent.isStopped = true;
         animator.SetTrigger("Die");

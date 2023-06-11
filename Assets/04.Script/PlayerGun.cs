@@ -8,6 +8,7 @@ public class PlayerGun : MonoBehaviour
     public float magazine;
     public float maxBullets = 30;
     public float nowBullet;
+    public float firePower = 1;
 
     [Header("Value")]
     [SerializeField] float shootDelayTime = 0.1f;
@@ -20,7 +21,7 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] PoolingManager smokeManager;
     [SerializeField] PoolingManager bloodManager;
 
-    bool canShoot = true;
+    public bool canShoot = true;
     bool starthoot = true;
     bool reloading = false;
 
@@ -67,13 +68,12 @@ public class PlayerGun : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Enemy")))
         {
             //적 체력 가져와서 죽여
-            hit.transform.GetComponent<Living>().OnDmage(1);
+            hit.transform.GetComponent<Living>().OnDmage(firePower);
             bloodManager.PopSmoke(hit.point, thisRot);
             //아마?
         }
         else if (Physics.Raycast(ray, out hit, 100))
         {
-            Debug.Log(hit);
             smokeManager.PopSmoke(hit.point, thisRot);
         }
 
@@ -81,7 +81,7 @@ public class PlayerGun : MonoBehaviour
 
     void Animing()
     {
-        if (Input.GetButtonDown("Fire1") && !reloading)
+        if (Input.GetButtonDown("Fire1") && !reloading && canShoot)
         {
             starthoot = true;
             gunFireParticle.Play();
