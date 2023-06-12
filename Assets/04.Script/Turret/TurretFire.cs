@@ -8,10 +8,13 @@ public class TurretFire : MonoBehaviour
     [Header("Object")]
     [SerializeField] private Transform firePos;
     [SerializeField] private ParticleSystem firePart;
-    [Header("Value")]
+    [Header("Stats")]
     [SerializeField] private float radius;
+    [SerializeField] private float firePower;
+    [SerializeField] private float delayTime;
 
     private GameObject target;
+    private bool attackDelay;
 
     void Update()
     {
@@ -42,6 +45,7 @@ public class TurretFire : MonoBehaviour
         else
         {
             target = null;
+            firePart.Stop();
         }
     }
 
@@ -56,12 +60,23 @@ public class TurretFire : MonoBehaviour
             transform.rotation = rotation;
 
             //น฿ป็
+            Ray ray = new Ray(firePos.position, direction + new Vector3(0, 0.4f, 0));
+            RaycastHit hit;
+            bool lineRange = Physics.Raycast(ray, out hit, radius, LayerMask.GetMask("Enemy"));
+            if (lineRange && !attackDelay)
+            {
+                StartCoroutine(Delay(delayTime));
 
+                hit.transform.GetComponent<Living>().OnDmage(firePower);
+                firePart.Play();
+            }
         }
     }
 
-    private void OnDrawGizmos()
+    private IEnumerator Delay(float time)
     {
-        Gizmos.DrawWireSphere(transform.position, radius);
+        attackDelay = true;
+        yield return new WaitForSeconds(time);
+        attackDelay = false;
     }
 }
