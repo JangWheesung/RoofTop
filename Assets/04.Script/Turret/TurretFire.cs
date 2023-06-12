@@ -49,7 +49,14 @@ public class TurretFire : MonoBehaviour
     {
         if (target != null)
         {
-            transform.LookAt(target.transform);
+            //방향보기
+            Vector3 direction = target.transform.position - transform.position;
+            direction.y = 0f;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            transform.rotation = rotation;
+
+            //발사
+
         }
     }
 
