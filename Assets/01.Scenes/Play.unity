@@ -3438,9 +3438,11 @@ MonoBehaviour:
   firePower: 1
   shootDelayTime: 0.1
   reloadTime: 2
+  rangeBox: {x: 0.7, y: 0.5, z: 0.7}
   gunFireParticle: {fileID: 463567714}
   smokeManager: {fileID: 2122969066}
   bloodManager: {fileID: 1156419526}
+  panel: {fileID: 1923592669}
   canShoot: 1
   holdTurret: 0
 --- !u!1 &445571602
@@ -21047,7 +21049,7 @@ RectTransform:
   - {fileID: 1923592670}
   - {fileID: 1065202902}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22469,7 +22471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137259147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5}
+  m_LocalPosition: {x: 0, y: -0.57, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22491,7 +22493,7 @@ PrefabInstance:
     - target: {fileID: 4682202492206805500, guid: 7926a265d1c6399498fe18beacb9c62a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4682202492206805500, guid: 7926a265d1c6399498fe18beacb9c62a,
         type: 3}

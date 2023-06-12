@@ -13,6 +13,7 @@ public class PlayerGun : MonoBehaviour
     [Header("Value")]
     [SerializeField] float shootDelayTime = 0.1f;
     [SerializeField] float reloadTime = 2f;
+    [SerializeField] Vector3 rangeBox;
 
     [Header("Particle")]
     [SerializeField] ParticleSystem gunFireParticle;
@@ -20,6 +21,9 @@ public class PlayerGun : MonoBehaviour
     [Header("Pooling")]
     [SerializeField] PoolingManager smokeManager;
     [SerializeField] PoolingManager bloodManager;
+
+    [Header("Other")]
+    [SerializeField] GameObject panel;
 
     public bool canShoot = true;
     public bool holdTurret = false;
@@ -108,12 +112,31 @@ public class PlayerGun : MonoBehaviour
 
     void TurretInstallation()
     {
-        if (Input.GetButtonDown("Fire1") && holdTurret)
+        //설치가능 범위지정
+        Transform turretPos = transform.parent.parent.GetChild(1);
+        Collider[] col = Physics.OverlapBox(turretPos.position, rangeBox, Quaternion.identity);
+
+        if (col.Length > 0)
+        {
+            Debug.Log($"개수 : {col.Length}");
+            for (int i = 0; i < col.Length; i++)
+            {
+                Debug.Log(col[i].name);
+            }
+        }
+
+        if (Input.GetButtonDown("Fire1") && holdTurret && !panel.activeSelf && col.Length <= 7)
         {
             holdTurret = false;
             transform.parent.parent.GetChild(1).GetChild(0).GetChild(0).GetComponent<TurretFire>().enabled = true;
             transform.parent.parent.GetChild(1).GetChild(0).parent = null;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(transform.parent.parent.GetChild(1).position, rangeBox);
     }
 
     IEnumerator ShootDelay(float time)
