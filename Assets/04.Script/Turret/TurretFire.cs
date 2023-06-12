@@ -7,19 +7,30 @@ public class TurretFire : MonoBehaviour
 {
     [Header("Object")]
     [SerializeField] private Transform firePos;
+    [SerializeField] private GameObject text;
     [SerializeField] private ParticleSystem firePart;
+    [SerializeField] private GameObject sponPart;
+    [SerializeField] private GameObject installPart;
     [Header("Stats")]
     [SerializeField] private float radius;
     [SerializeField] private float firePower;
     [SerializeField] private float delayTime;
+    [SerializeField] private int cost;
 
     private GameObject target;
     private bool attackDelay;
+
+    private void Start()
+    {
+        sponPart.SetActive(false);
+        installPart.SetActive(true);
+    }
 
     void Update()
     {
         ZombieRange();
         Fire();
+        TurretSell();
     }
 
     void ZombieRange()
@@ -73,7 +84,23 @@ public class TurretFire : MonoBehaviour
         }
     }
 
-    private IEnumerator Delay(float time)
+    void TurretSell()
+    {
+        Collider[] col = Physics.OverlapSphere(transform.position, 3, LayerMask.GetMask("Player"));
+        if (col.Length > 0)
+        {
+            text.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                MoneyManager.instance.money += cost;
+                Destroy(gameObject);
+            }
+        }
+        else
+            text.SetActive(false);
+    }
+
+        private IEnumerator Delay(float time)
     {
         attackDelay = true;
         yield return new WaitForSeconds(time);
