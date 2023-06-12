@@ -12,7 +12,6 @@ public class LevelUpGraph
 public class GunLevelManager : MonoBehaviour
 {
     PlayerGun playerGun;
-    MoneyManager moneyManager;
 
     public List<LevelUpGraph> maxBulletLevelCostume;
     public List<LevelUpGraph> magazineLevelCostume;
@@ -25,14 +24,13 @@ public class GunLevelManager : MonoBehaviour
     private void Awake()
     {
         playerGun = FindObjectOfType<PlayerGun>();
-        moneyManager = FindObjectOfType<MoneyManager>();
     }
 
     public void MaxbulletLevelUp()
     {
-        if (moneyManager.money >= maxBulletLevelCostume[maxBulletLevel].cost)
+        if (MoneyManager.instance.money >= maxBulletLevelCostume[maxBulletLevel].cost)
         {
-            moneyManager.money -= maxBulletLevelCostume[maxBulletLevel].cost;
+            MoneyManager.instance.money -= maxBulletLevelCostume[maxBulletLevel].cost;
             maxBulletLevel++;
             playerGun.maxBullets += maxBulletLevelCostume[maxBulletLevel].increaseAmount;
         }
@@ -40,9 +38,9 @@ public class GunLevelManager : MonoBehaviour
 
     public void MagazineLevelUp()
     {
-        if (moneyManager.money >= magazineLevelCostume[magazineLevel].cost)
+        if (MoneyManager.instance.money >= magazineLevelCostume[magazineLevel].cost)
         {
-            moneyManager.money -= magazineLevelCostume[magazineLevel].cost;
+            MoneyManager.instance.money -= magazineLevelCostume[magazineLevel].cost;
             magazineLevel++;
             playerGun.magazine += magazineLevelCostume[magazineLevel].increaseAmount;
         }
@@ -50,9 +48,9 @@ public class GunLevelManager : MonoBehaviour
 
     public void PowerLevelUp()
     {
-        if (moneyManager.money >= firepowerLevelCostume[firepowerLevel].cost)
+        if (MoneyManager.instance.money >= firepowerLevelCostume[firepowerLevel].cost)
         {
-            moneyManager.money -= firepowerLevelCostume[firepowerLevel].cost;
+            MoneyManager.instance.money -= firepowerLevelCostume[firepowerLevel].cost;
             firepowerLevel++;
             playerGun.firePower += firepowerLevelCostume[firepowerLevel].increaseAmount;
         }

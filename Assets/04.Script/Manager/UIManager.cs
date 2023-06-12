@@ -26,6 +26,20 @@ public class GunPanelValue
     }
 }
 
+public class TurretPanel
+{
+    [HideInInspector]
+    public Button level;
+    [HideInInspector]
+    public TextMeshProUGUI cost;
+
+    public TurretPanel(GameObject panel)
+    {
+        level = panel.transform.GetChild(2).GetComponent<Button>();
+        cost = level.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    }
+};
+
 public class UIManager : MonoBehaviour
 {
     [Header("Stat")]
@@ -36,11 +50,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider HPslider;
 
     [Header("GunPanel")]
-    [SerializeField] private GunPanelValue maxbulletPanel;
+    private GunPanelValue maxbulletPanel;
     [SerializeField] private GameObject maxbulletObj;
-    [SerializeField] private GunPanelValue magazinePanel;
+    private GunPanelValue magazinePanel;
     [SerializeField] private GameObject magazineObj;
-    [SerializeField] private GunPanelValue powerPanel;
+    private GunPanelValue powerPanel;
     [SerializeField] private GameObject powerObj;
 
     private GunLevelManager gunLevelManager;

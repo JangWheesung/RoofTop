@@ -22,6 +22,7 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] PoolingManager bloodManager;
 
     public bool canShoot = true;
+    public bool holdTurret = false;
     bool starthoot = true;
     bool reloading = false;
 
@@ -45,11 +46,12 @@ public class PlayerGun : MonoBehaviour
         Shoot();
         Animing();
         ReLoad();
+        TurretInstallation();
     }
 
     void Shoot()
     {
-        if (Input.GetButton("Fire1") && nowBullet > 0 && canShoot && starthoot && !reloading)
+        if (Input.GetButton("Fire1") && nowBullet > 0 && canShoot && starthoot && !reloading && !holdTurret)
         {
             GunRay();
 
@@ -81,7 +83,7 @@ public class PlayerGun : MonoBehaviour
 
     void Animing()
     {
-        if (Input.GetButtonDown("Fire1") && !reloading && canShoot)
+        if (Input.GetButtonDown("Fire1") && !reloading && canShoot && !holdTurret)
         {
             starthoot = true;
             gunFireParticle.Play();
@@ -101,6 +103,16 @@ public class PlayerGun : MonoBehaviour
         {
             animator.SetBool("Reload", true);
             StartCoroutine(ReloadDelay(reloadTime));
+        }
+    }
+
+    void TurretInstallation()
+    {
+        if (Input.GetButtonDown("Fire1") && holdTurret)
+        {
+            holdTurret = false;
+            transform.parent.parent.GetChild(1).GetChild(0).GetChild(0).GetComponent<TurretFire>().enabled = true;
+            transform.parent.parent.GetChild(1).GetChild(0).parent = null;
         }
     }
 

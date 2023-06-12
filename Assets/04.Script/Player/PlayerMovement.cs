@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float lookXLimit = 45.0f;
 
     private CharacterController characterController;
-    public Vector3 moveDirection = Vector3.zero;
+    private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0;
 
     [HideInInspector]
