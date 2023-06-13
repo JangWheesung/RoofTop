@@ -151,11 +151,16 @@ public class PlayerGun : MonoBehaviour
         reloading = true;
         yield return new WaitForSeconds(time);
 
-        magazine -= (maxBullets - nowBullet);
         if (magazine >= maxBullets)
+        {
+            magazine -= (maxBullets - nowBullet);
             nowBullet = maxBullets;
+        }
         else
-            nowBullet = magazine;
+        {
+            nowBullet += magazine;
+            magazine = 0;
+        }
 
         reloading = false;
         animator.SetBool("Reload", false);

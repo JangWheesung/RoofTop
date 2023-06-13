@@ -9,7 +9,7 @@ public class WaveManager : MonoBehaviour
 
     private PlayerHP playerHp;
 
-    [SerializeField] Transform enemySponer;
+    [SerializeField] Transform[] enemySponer;
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject pressText;
 
@@ -40,10 +40,10 @@ public class WaveManager : MonoBehaviour
 
     void NextWave()
     {
-        if (playerHp.health > 70)
-            playerHp.health = 100;
+        if (playerHp.health > 30)
+            playerHp.health = 50;
         else
-            playerHp.health += 30;
+            playerHp.health += 20;
 
         wave++;
         enemyCount = 7 + (wave * 3);
@@ -60,7 +60,8 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < cnt; i++)
         {
             yield return new WaitForSeconds(time);
-            GameObject em = Instantiate(enemy, enemySponer);
+            Transform sponTrs = enemySponer[Random.Range(0, enemySponer.Length)];
+            GameObject em = Instantiate(enemy, sponTrs);
             em.transform.GetComponent<ZombieHP>().health = enemyHp;
             em.transform.GetComponent<ZombieMovement>().attack = enemyAttack;
         }
