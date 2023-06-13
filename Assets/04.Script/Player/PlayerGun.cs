@@ -25,6 +25,7 @@ public class PlayerGun : MonoBehaviour
     [Header("Other")]
     [SerializeField] GameObject panel;
 
+    public float totalDmg;
     public bool canShoot = true;
     public bool holdTurret = false;
     bool starthoot = true;
@@ -74,6 +75,7 @@ public class PlayerGun : MonoBehaviour
         {
             //적 체력 가져와서 죽여
             hit.transform.GetComponent<Living>().OnDmage(firePower);
+            totalDmg += firePower;
             bloodManager.PopSmoke(hit.point, thisRot);
             //아마?
         }

@@ -13,6 +13,7 @@ public class TurretCreateManager : MonoBehaviour
 {
     [SerializeField] private int[] costs;
     [SerializeField] private GameObject[] turrets;
+    [SerializeField] private GameObject panel;
 
     GameObject player;
     Transform playerTurretPos;
@@ -38,6 +39,7 @@ public class TurretCreateManager : MonoBehaviour
             turret.transform.localRotation = Quaternion.identity;
 
             playerGun.holdTurret = true;
+            panel.SetActive(false);
         }
     }
 }

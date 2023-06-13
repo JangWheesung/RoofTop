@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GunPanelValue
@@ -109,5 +107,10 @@ public class UIManager : MonoBehaviour
     {
         gunPanelValue.level.text = nowLevel.ToString();
         gunPanelValue.cost.text = levelUpGraph.cost.ToString();
+    }
+
+    public void ExitBtn(string name)
+    {
+        SceneManager.LoadScene(name);
     }
 }
