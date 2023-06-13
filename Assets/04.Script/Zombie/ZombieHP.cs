@@ -25,6 +25,7 @@ public class ZombieHP : Living
 
     protected override void Die()
     {
+        gameObject.layer = 0;
         WaveManager.instance.enemyCount--;
         MoneyManager.instance.money += giveMoney;
         capsuleCollider.enabled = false;

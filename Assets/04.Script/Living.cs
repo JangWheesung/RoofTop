@@ -5,7 +5,7 @@ using UnityEngine;
 public class Living : MonoBehaviour
 {
     public float health;
-    bool die;
+    public bool die;
 
     public virtual void OnDmage(float dmg)
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class TurretFire : MonoBehaviour
 {
@@ -19,14 +20,19 @@ public class TurretFire : MonoBehaviour
 
     private GameObject target;
     private PoolingManager bloodManager;
+    private LineRenderer lineRenderer;
+    private Vector3[] linePoints = new Vector3[2];
     private bool attackDelay;
 
     private void Start()
     {
         bloodManager = GameObject.FindWithTag("Blood").GetComponent<PoolingManager>();
+        lineRenderer = firePos.GetComponent<LineRenderer>();
 
         sponPart.SetActive(false);
         installPart.SetActive(true);
+
+        lineRenderer.positionCount = 2;
     }
 
     void Update()
@@ -39,18 +45,27 @@ public class TurretFire : MonoBehaviour
     void ZombieRange()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
+        Collider[] notCol = Physics.OverlapSphere(transform.position, 0.6f, LayerMask.GetMask("Enemy"));
         if (col.Length > 0)//아무 좀비나 사정거리에 들어왔다
         {
             foreach (Collider c in col)
             {
-                if (target == null)
+                bool notCatch = false;
+
+                foreach (Collider nc in notCol)//너무 가까이 있으면 감지 안됨
+                {
+                    if (c == nc)
+                        notCatch = true;
+                }
+
+                if (target == null && !notCatch)
                 {
                     target = c.gameObject;
                 }
 
                 float rangeDistance = Vector3.Distance(transform.position, c.transform.position);
                 float targetDistance = Vector3.Distance(transform.position, target.transform.position);
-                if (rangeDistance < targetDistance)//가장 가까이 있는 좀비 찾기
+                if (rangeDistance < targetDistance && !notCatch)//가장 가까이 있는 좀비 찾기
                 {
                     target = c.gameObject;
                 }
@@ -59,6 +74,7 @@ public class TurretFire : MonoBehaviour
         else
         {
             target = null;
+            lineRenderer.enabled = false;
             firePart.Stop();
         }
     }
@@ -73,20 +89,22 @@ public class TurretFire : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = rotation;
 
-            //발사
-            Ray ray = new Ray(firePos.position, direction + new Vector3(0, 0.4f, 0));
-            RaycastHit hit;
-            bool lineRange = Physics.Raycast(ray, out hit, radius, LayerMask.GetMask("Enemy"));
+            Debug.Log(transform.eulerAngles.y - 180); 
+            Quaternion thisRot = Quaternion.Euler(0, transform.eulerAngles.y - 180, 0);
 
-            Quaternion thisRot = Quaternion.Euler(0, transform.rotation.y, 0);
-
-            if (lineRange && !attackDelay)
+            if (!attackDelay)
             {
                 StartCoroutine(Delay(delayTime));
 
+                Vector3 hitPoint = new Vector3(target.transform.position.x, firePos.position.y, target.transform.position.z);
+
+                linePoints[0] = firePos.position;
+                linePoints[1] = hitPoint;
+                lineRenderer.SetPositions(linePoints);
+
                 firePart.Play();
-                hit.transform.GetComponent<Living>().OnDmage(firePower);
-                bloodManager.PopSmoke(hit.point - new Vector3(0, 0.3f, 0), thisRot);
+                target.transform.GetComponent<Living>().OnDmage(firePower);
+                bloodManager.PopSmoke(hitPoint, thisRot);
             }
         }
     }
@@ -110,7 +128,13 @@ public class TurretFire : MonoBehaviour
     private IEnumerator Delay(float time)
     {
         attackDelay = true;
-        yield return new WaitForSeconds(time);
+        for (int i = 0; i < 4; i++)
+        {
+            lineRenderer.enabled = true;
+            yield return new WaitForSeconds(time / 8);
+            lineRenderer.enabled = false;
+            yield return new WaitForSeconds(time / 8);
+        }
         attackDelay = false;
     }
 }

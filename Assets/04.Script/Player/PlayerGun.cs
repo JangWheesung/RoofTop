@@ -68,7 +68,6 @@ public class PlayerGun : MonoBehaviour
     void GunRay()
     {
         ray = cam.ScreenPointToRay(ScreenCenter);
-        Debug.DrawRay(transform.position, -transform.right, Color.red, 100);
 
         Quaternion thisRot = Quaternion.Euler(transform.parent.transform.eulerAngles.x - 180, transform.parent.parent.transform.eulerAngles.y, 0);
         if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Enemy")))

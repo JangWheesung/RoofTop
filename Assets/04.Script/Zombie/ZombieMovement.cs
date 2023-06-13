@@ -14,6 +14,7 @@ public class ZombieMovement : MonoBehaviour
     private Rigidbody rb;
     private Animator animator;
     private NavMeshAgent agent;
+    private ZombieHP zombieHP;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class ZombieMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         animator = gameObject.GetComponent<Animator>();
         agent = gameObject.GetComponent<NavMeshAgent>();
+        zombieHP = gameObject.GetComponent<ZombieHP>();
     }
 
     void Update()
@@ -38,7 +40,7 @@ public class ZombieMovement : MonoBehaviour
     private void Attack()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, rangeRadiue, LayerMask.GetMask("Player"));
-        if (col.Length > 0 && !isAttacking)
+        if (col.Length > 0 && !isAttacking && !zombieHP.die)
         {
             isAttacking = true;
             player.transform.GetComponent<PlayerHP>().OnDmage(attack);

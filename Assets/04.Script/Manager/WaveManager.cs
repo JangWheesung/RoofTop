@@ -56,7 +56,8 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator Spon(float time)
     {
-        for (int i = 0; i < enemyCount; i++)
+        float cnt = enemyCount;
+        for (int i = 0; i < cnt; i++)
         {
             yield return new WaitForSeconds(time);
             GameObject em = Instantiate(enemy, enemySponer);
