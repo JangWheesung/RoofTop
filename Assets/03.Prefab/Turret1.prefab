@@ -14920,7 +14920,7 @@ MonoBehaviour:
   radius: 3
   firePower: 1
   delayTime: 0.2
-  cost: 0
+  cost: 50
 --- !u!1 &4789211385024478295
 GameObject:
   m_ObjectHideFlags: 0

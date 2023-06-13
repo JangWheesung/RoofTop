@@ -18,10 +18,13 @@ public class TurretFire : MonoBehaviour
     [SerializeField] private int cost;
 
     private GameObject target;
+    private PoolingManager bloodManager;
     private bool attackDelay;
 
     private void Start()
     {
+        bloodManager = GameObject.FindWithTag("Blood").GetComponent<PoolingManager>();
+
         sponPart.SetActive(false);
         installPart.SetActive(true);
     }
@@ -74,33 +77,37 @@ public class TurretFire : MonoBehaviour
             Ray ray = new Ray(firePos.position, direction + new Vector3(0, 0.4f, 0));
             RaycastHit hit;
             bool lineRange = Physics.Raycast(ray, out hit, radius, LayerMask.GetMask("Enemy"));
+
+            Quaternion thisRot = Quaternion.Euler(0, transform.rotation.y, 0);
+
             if (lineRange && !attackDelay)
             {
                 StartCoroutine(Delay(delayTime));
 
-                hit.transform.GetComponent<Living>().OnDmage(firePower);
                 firePart.Play();
+                hit.transform.GetComponent<Living>().OnDmage(firePower);
+                bloodManager.PopSmoke(hit.point - new Vector3(0, 0.3f, 0), thisRot);
             }
         }
     }
 
     void TurretSell()
     {
-        Collider[] col = Physics.OverlapSphere(transform.position, 3, LayerMask.GetMask("Player"));
+        Collider[] col = Physics.OverlapSphere(transform.position, 1, LayerMask.GetMask("Player"));
         if (col.Length > 0)
         {
             text.SetActive(true);
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 MoneyManager.instance.money += cost;
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
         else
             text.SetActive(false);
     }
 
-        private IEnumerator Delay(float time)
+    private IEnumerator Delay(float time)
     {
         attackDelay = true;
         yield return new WaitForSeconds(time);

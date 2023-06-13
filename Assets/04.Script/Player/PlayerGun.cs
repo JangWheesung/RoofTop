@@ -116,16 +116,16 @@ public class PlayerGun : MonoBehaviour
         Transform turretPos = transform.parent.parent.GetChild(1);
         Collider[] col = Physics.OverlapBox(turretPos.position, rangeBox, Quaternion.identity);
 
-        if (col.Length > 0)
-        {
-            Debug.Log($"개수 : {col.Length}");
-            for (int i = 0; i < col.Length; i++)
-            {
-                Debug.Log(col[i].name);
-            }
-        }
+        //if (col.Length > 0)
+        //{
+        //    Debug.Log($"개수 : {col.Length}");
+        //    for (int i = 0; i < col.Length; i++)
+        //    {
+        //        Debug.Log(col[i].name);
+        //    }
+        //}
 
-        if (Input.GetButtonDown("Fire1") && holdTurret && !panel.activeSelf && col.Length <= 7)
+        if (Input.GetButtonDown("Fire1") && holdTurret && !panel.activeSelf && col.Length <= 4)
         {
             holdTurret = false;
             transform.parent.parent.GetChild(1).GetChild(0).GetChild(0).GetComponent<TurretFire>().enabled = true;
