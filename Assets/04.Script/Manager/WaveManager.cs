@@ -7,11 +7,13 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance;
 
+    private PlayerHP playerHp;
+
     [SerializeField] Transform enemySponer;
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject pressText;
 
-    public float enemyCount = 10;
+    public float enemyCount;
     float enemyAttack = 1;
     float enemyHp = 5;
 
@@ -21,6 +23,7 @@ public class WaveManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        playerHp = FindObjectOfType<PlayerHP>();
     }
 
     private void Update()
@@ -37,6 +40,11 @@ public class WaveManager : MonoBehaviour
 
     void NextWave()
     {
+        if (playerHp.health > 70)
+            playerHp.health = 100;
+        else
+            playerHp.health += 30;
+
         wave++;
         enemyCount = 7 + (wave * 3);
         enemyAttack = 1 + (wave * 0.125f);
