@@ -52,8 +52,17 @@ public class ZombieMovement : MonoBehaviour
     IEnumerator AttackDelay(float time)
     {
         agent.isStopped = true;
+
+        Vector3 vec = player.transform.position - transform.position;
+        vec.y = 0; //Y∞Ì¡§
+
+        Quaternion targetRotation = Quaternion.LookRotation(vec);
+        transform.rotation = targetRotation;
+
         animator.SetBool("Attack", true);
+
         yield return new WaitForSeconds(time);
+
         agent.isStopped = false;
         animator.SetBool("Attack", false);
         isAttacking = false;

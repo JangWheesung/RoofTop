@@ -111,6 +111,7 @@ public class UIManager : MonoBehaviour
 
     public void ExitBtn(string name)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(name);
     }
 }

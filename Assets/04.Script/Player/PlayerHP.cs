@@ -39,7 +39,10 @@ public class PlayerHP : Living
 
     protected override void Die()
     {
+        gameoverPanel.SetActive(true);
+
         panel = new Panel(gameoverPanel.transform);
+
         gameoverPanel.GetComponent<Image>().DOFade(1, 1f);
         panel.gameoverText.GetComponent<TextMeshProUGUI>().DOFade(1, 1f).OnComplete(() =>
         {
