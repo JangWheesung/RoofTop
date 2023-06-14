@@ -64,7 +64,7 @@ public class GunLevelManager : MonoBehaviour
         {
             MoneyManager.instance.money -= 10 + ((int)Mathf.Floor((firepowerLevel - 1) / 2) * 3);
             firepowerLevel++;
-            playerGun.firePower += 0.1f;
+            playerGun.firePower += 0.2f;
         }
     }
 }
