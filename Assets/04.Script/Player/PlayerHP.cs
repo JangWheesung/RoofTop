@@ -4,15 +4,19 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
+[System.Serializable]
 public class Panel
 {
+    public GameObject gameoverText;
     public Transform textPanel;
     public TextMeshProUGUI[] totalTexts = new TextMeshProUGUI[3];
     public Button exitBtn;
 
     public Panel(Transform panel)
     {
+        gameoverText = panel.GetChild(0).gameObject;
         textPanel = panel.GetChild(1);
         totalTexts[0] = textPanel.GetChild(0).GetComponent<TextMeshProUGUI>();
         totalTexts[1] = textPanel.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -35,18 +39,20 @@ public class PlayerHP : Living
 
     protected override void Die()
     {
-        base.Die();
-
         panel = new Panel(gameoverPanel.transform);
-
-        gameoverPanel.GetComponent<Image>().DOFade(1, 1f).OnComplete(() =>
+        gameoverPanel.GetComponent<Image>().DOFade(1, 1f);
+        panel.gameoverText.GetComponent<TextMeshProUGUI>().DOFade(1, 1f).OnComplete(() =>
         {
-            panel.totalTexts[0].text = $"Total Wave : {WaveManager.instance.wave}";
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            panel.totalTexts[0].text = $"Total Wave : {WaveManager.instance.wave}"; 
             panel.totalTexts[1].text = $"Total Money : {MoneyManager.instance.money}";
             panel.totalTexts[2].text = $"Total Damage : {playerGun.totalDmg}";
 
-            panel.textPanel.DOMoveY(-120, 1f).OnComplete(() =>
+            panel.textPanel.DOMoveY(420, 1f).OnComplete(() =>
             {
+                panel.exitBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>().DOFade(1, 1f);
                 panel.exitBtn.GetComponent<Image>().DOFade(1, 1f).OnComplete(() => { Time.timeScale = 0; });
             });
         });
