@@ -28,31 +28,43 @@ public class GunLevelManager : MonoBehaviour
 
     public void MaxbulletLevelUp()
     {
-        if (MoneyManager.instance.money >= maxBulletLevelCostume[maxBulletLevel].cost)
+        if (maxBulletLevel >= 9)//최대 레벨 도달
+            return;
+
+        if (MoneyManager.instance.money >= maxBulletLevelCostume[maxBulletLevel - 1].cost)
         {
-            MoneyManager.instance.money -= maxBulletLevelCostume[maxBulletLevel].cost;
+            MoneyManager.instance.money -= maxBulletLevelCostume[maxBulletLevel - 1].cost;
             maxBulletLevel++;
-            playerGun.maxBullets += maxBulletLevelCostume[maxBulletLevel].increaseAmount;
+            playerGun.maxBullets += maxBulletLevelCostume[maxBulletLevel - 1].increaseAmount;
         }
     }
 
     public void MagazineLevelUp()
     {
-        if (MoneyManager.instance.money >= magazineLevelCostume[magazineLevel].cost)
+        if (magazineLevel >= 18)//이거 반복
         {
-            MoneyManager.instance.money -= magazineLevelCostume[magazineLevel].cost;
+            if (MoneyManager.instance.money >= magazineLevelCostume[18].cost)
+            {
+                MoneyManager.instance.money -= magazineLevelCostume[18].cost;
+                magazineLevel++;
+                playerGun.magazine += magazineLevelCostume[18].increaseAmount;
+            }
+        }
+        else if(MoneyManager.instance.money >= magazineLevelCostume[magazineLevel - 1].cost)
+        {
+            MoneyManager.instance.money -= magazineLevelCostume[magazineLevel - 1].cost;
             magazineLevel++;
-            playerGun.magazine += magazineLevelCostume[magazineLevel].increaseAmount;
+            playerGun.magazine += magazineLevelCostume[magazineLevel - 1].increaseAmount;
         }
     }
 
     public void PowerLevelUp()
     {
-        if (MoneyManager.instance.money >= firepowerLevelCostume[firepowerLevel].cost)
+        if (MoneyManager.instance.money >= 10 + ((int)Mathf.Floor((firepowerLevel - 1) / 2) * 3))
         {
-            MoneyManager.instance.money -= firepowerLevelCostume[firepowerLevel].cost;
+            MoneyManager.instance.money -= 10 + ((int)Mathf.Floor((firepowerLevel - 1) / 2) * 3);
             firepowerLevel++;
-            playerGun.firePower += firepowerLevelCostume[firepowerLevel].increaseAmount;
+            playerGun.firePower += 0.1f;
         }
     }
 }

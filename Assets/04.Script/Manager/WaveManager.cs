@@ -48,8 +48,7 @@ public class WaveManager : MonoBehaviour
         wave++;
         enemyCount = 7 + (wave * 3);
         enemyAttack = 1 + (wave * 0.125f);
-        //enemyHp = 5 + (Mathf.Sqrt(wave) * ((wave + 1) / 2));
-        enemyHp = (wave * 5);
+        enemyHp = 5 + (wave);
 
         StartCoroutine(Spon(0.5f));
     }

@@ -15125,7 +15125,7 @@ MonoBehaviour:
   firePart: {fileID: 1420285354}
   sponPart: {fileID: 6357535957537005889}
   installPart: {fileID: 8689187622031233570}
-  radius: 3
+  radius: 4
   firePower: 2
   delayTime: 0.15
   cost: 100

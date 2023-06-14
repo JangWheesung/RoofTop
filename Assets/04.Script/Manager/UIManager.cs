@@ -95,8 +95,8 @@ public class UIManager : MonoBehaviour
     void GunPanleUIAll()
     {
         GunPanleUI(maxbulletPanel, gunLevelManager.maxBulletLevelCostume[gunLevelManager.maxBulletLevel - 1], gunLevelManager.maxBulletLevel);
-        GunPanleUI(magazinePanel, gunLevelManager.magazineLevelCostume[gunLevelManager.magazineLevel - 1], gunLevelManager.magazineLevel);
-        GunPanleUI(powerPanel, gunLevelManager.firepowerLevelCostume[gunLevelManager.firepowerLevel - 1], gunLevelManager.firepowerLevel);
+        GunPanleUI(magazinePanel, gunLevelManager.magazineLevelCostume[Mathf.Clamp(gunLevelManager.magazineLevel - 1, 0, 18)], gunLevelManager.magazineLevel);
+        GunPanleUI(powerPanel, null, gunLevelManager.firepowerLevel);
 
         maxbulletPanel.ability.text = playerGun.maxBullets.ToString();
         magazinePanel.ability.text = playerGun.magazine.ToString();
@@ -105,8 +105,21 @@ public class UIManager : MonoBehaviour
 
     void GunPanleUI(GunPanelValue gunPanelValue, LevelUpGraph levelUpGraph, int nowLevel)
     {
-        gunPanelValue.level.text = nowLevel.ToString();
-        gunPanelValue.cost.text = levelUpGraph.cost.ToString();
+        if (gunPanelValue == maxbulletPanel && nowLevel >= 9)
+        {
+            gunPanelValue.level.text = "MAX";
+            gunPanelValue.cost.text = "MAX";
+        }
+        else if (gunPanelValue == powerPanel)
+        {
+            gunPanelValue.level.text = nowLevel.ToString();
+            gunPanelValue.cost.text = (10 + ((int)Mathf.Floor((nowLevel - 1) / 2) * 3)).ToString();
+        }
+        else
+        {
+            gunPanelValue.level.text = nowLevel.ToString();
+            gunPanelValue.cost.text = levelUpGraph.cost.ToString();
+        }
     }
 
     public void ExitBtn(string name)
