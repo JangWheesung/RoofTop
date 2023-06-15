@@ -12,6 +12,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] Transform[] enemySponer;
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject pressText;
+    [SerializeField] AudioSource[] waveAudioSource;
 
     public float enemyCount;
     float enemyAttack = 1;
@@ -46,9 +47,13 @@ public class WaveManager : MonoBehaviour
             playerHp.health += 20;
 
         wave++;
+
         enemyCount = 7 + (wave * 3);
         enemyAttack = 1 + (wave * 0.125f);
         enemyHp = 5 + (wave);
+
+        foreach(AudioSource audio in waveAudioSource)
+            audio.Play();
 
         StartCoroutine(Spon(0.5f));
     }

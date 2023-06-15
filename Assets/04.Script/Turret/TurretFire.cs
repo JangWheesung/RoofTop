@@ -21,6 +21,7 @@ public class TurretFire : MonoBehaviour
     private GameObject target;
     private PoolingManager bloodManager;
     private LineRenderer lineRenderer;
+    private AudioSource audioSource;
     private Vector3[] linePoints = new Vector3[2];
     private bool attackDelay;
 
@@ -28,6 +29,7 @@ public class TurretFire : MonoBehaviour
     {
         bloodManager = GameObject.FindWithTag("Blood").GetComponent<PoolingManager>();
         lineRenderer = firePos.GetComponent<LineRenderer>();
+        audioSource = gameObject.GetComponent<AudioSource>();
 
         sponPart.SetActive(false);
         installPart.SetActive(true);
@@ -45,8 +47,8 @@ public class TurretFire : MonoBehaviour
     void ZombieRange()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
-        Collider[] notCol = Physics.OverlapSphere(transform.position, 0.6f, LayerMask.GetMask("Enemy"));
-        if (col.Length > 0)//아무 좀비나 사정거리에 들어왔다
+        Collider[] notCol = Physics.OverlapSphere(transform.position, 0.7f, LayerMask.GetMask("Enemy"));
+        if (col.Length - notCol.Length > 0)//아무 좀비나 사정거리에 들어왔다
         {
             foreach (Collider c in col)
             {
@@ -76,6 +78,7 @@ public class TurretFire : MonoBehaviour
             target = null;
             lineRenderer.enabled = false;
             firePart.Stop();
+            audioSource.Stop();
         }
     }
 
@@ -89,7 +92,6 @@ public class TurretFire : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = rotation;
 
-            Debug.Log(transform.eulerAngles.y - 180); 
             Quaternion thisRot = Quaternion.Euler(0, transform.eulerAngles.y - 180, 0);
 
             if (!attackDelay)
@@ -103,6 +105,7 @@ public class TurretFire : MonoBehaviour
                 lineRenderer.SetPositions(linePoints);
 
                 firePart.Play();
+                audioSource.Play();
                 target.transform.GetComponent<Living>().OnDmage(firePower);
                 bloodManager.PopSmoke(hitPoint, thisRot);
             }

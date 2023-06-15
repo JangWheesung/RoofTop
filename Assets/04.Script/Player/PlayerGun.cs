@@ -24,6 +24,8 @@ public class PlayerGun : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] GameObject panel;
+    [SerializeField] AudioClip fireSound;
+    [SerializeField] AudioClip reloadSound;
 
     public float totalDmg;
     public bool canShoot = true;
@@ -36,12 +38,15 @@ public class PlayerGun : MonoBehaviour
 
     Camera cam;
     Animator animator;
+    AudioSource audioSource;
     Vector2 ScreenCenter;
 
     void Awake()
     {
         cam = Camera.main;
         animator = gameObject.GetComponent<Animator>();
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.clip.LoadAudioData();
         nowBullet = maxBullets;
         ScreenCenter = new Vector2(cam.pixelWidth / 2, cam.pixelHeight / 2);
     }
@@ -60,6 +65,9 @@ public class PlayerGun : MonoBehaviour
         {
             GunRay();
 
+            audioSource.clip = fireSound;
+            audioSource.Play();
+
             nowBullet--;
 
             StartCoroutine(ShootDelay(shootDelayTime));
@@ -76,7 +84,8 @@ public class PlayerGun : MonoBehaviour
             //적 체력 가져와서 죽여
             hit.transform.GetComponent<Living>().OnDmage(firePower);
             totalDmg += firePower;
-            bloodManager.PopSmoke(hit.point, thisRot);
+
+            bloodManager.PopSmoke(hit.point, thisRot); audioSource.Play();
             //아마?
         }
         else if (Physics.Raycast(ray, out hit, 100))
@@ -106,6 +115,9 @@ public class PlayerGun : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
+            audioSource.clip = reloadSound;
+            audioSource.Play();
+
             animator.SetBool("Reload", true);
             StartCoroutine(ReloadDelay(reloadTime));
         }
