@@ -12,6 +12,7 @@ public class LevelUpGraph
 public class GunLevelManager : MonoBehaviour
 {
     PlayerGun playerGun;
+    AudioSource audioSource;
 
     public List<LevelUpGraph> maxBulletLevelCostume;
     public List<LevelUpGraph> magazineLevelCostume;
@@ -24,6 +25,7 @@ public class GunLevelManager : MonoBehaviour
     private void Awake()
     {
         playerGun = FindObjectOfType<PlayerGun>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public void MaxbulletLevelUp()
@@ -36,6 +38,8 @@ public class GunLevelManager : MonoBehaviour
             MoneyManager.instance.money -= maxBulletLevelCostume[maxBulletLevel - 1].cost;
             maxBulletLevel++;
             playerGun.maxBullets += maxBulletLevelCostume[maxBulletLevel - 1].increaseAmount;
+
+            audioSource.Play();
         }
     }
 
@@ -48,6 +52,8 @@ public class GunLevelManager : MonoBehaviour
                 MoneyManager.instance.money -= magazineLevelCostume[18].cost;
                 magazineLevel++;
                 playerGun.magazine += magazineLevelCostume[18].increaseAmount;
+
+                audioSource.Play();
             }
         }
         else if(MoneyManager.instance.money >= magazineLevelCostume[magazineLevel - 1].cost)
@@ -55,6 +61,8 @@ public class GunLevelManager : MonoBehaviour
             MoneyManager.instance.money -= magazineLevelCostume[magazineLevel - 1].cost;
             magazineLevel++;
             playerGun.magazine += magazineLevelCostume[magazineLevel - 1].increaseAmount;
+
+            audioSource.Play();
         }
     }
 
@@ -65,6 +73,8 @@ public class GunLevelManager : MonoBehaviour
             MoneyManager.instance.money -= 10 + ((int)Mathf.Floor((firepowerLevel - 1) / 2) * 3);
             firepowerLevel++;
             playerGun.firePower += 0.2f;
+
+            audioSource.Play();
         }
     }
 }

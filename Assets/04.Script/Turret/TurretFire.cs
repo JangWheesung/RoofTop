@@ -22,14 +22,18 @@ public class TurretFire : MonoBehaviour
     private PoolingManager bloodManager;
     private LineRenderer lineRenderer;
     private AudioSource audioSource;
+    private AudioSource installSource;
     private Vector3[] linePoints = new Vector3[2];
     private bool attackDelay;
+
+    bool install;
 
     private void Start()
     {
         bloodManager = GameObject.FindWithTag("Blood").GetComponent<PoolingManager>();
         lineRenderer = firePos.GetComponent<LineRenderer>();
         audioSource = gameObject.GetComponent<AudioSource>();
+        installSource = transform.parent.GetComponent<AudioSource>();
 
         sponPart.SetActive(false);
         installPart.SetActive(true);
@@ -39,6 +43,12 @@ public class TurretFire : MonoBehaviour
 
     void Update()
     {
+        if (!install)
+        {
+            install = true;
+            installSource.Play();
+        }
+
         ZombieRange();
         Fire();
         TurretSell();
@@ -106,6 +116,7 @@ public class TurretFire : MonoBehaviour
 
                 firePart.Play();
                 audioSource.Play();
+
                 target.transform.GetComponent<Living>().OnDmage(firePower);
                 bloodManager.PopSmoke(hitPoint, thisRot);
             }

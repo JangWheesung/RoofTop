@@ -18,12 +18,15 @@ public class TurretCreateManager : MonoBehaviour
     GameObject player;
     Transform playerTurretPos;
     PlayerGun playerGun;
+    AudioSource audioSource;
 
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
         playerTurretPos = player.transform.GetChild(1);
         playerGun = player.transform.GetChild(0).GetChild(0).GetComponent<PlayerGun>();
+
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public void BuyTurret(int i)
@@ -40,6 +43,8 @@ public class TurretCreateManager : MonoBehaviour
 
             playerGun.holdTurret = true;
             panel.SetActive(false);
+
+            audioSource.Play();
         }
     }
 }
