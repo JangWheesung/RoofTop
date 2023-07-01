@@ -13,7 +13,6 @@ public class FireTurretFire : TurretFire
             //불 발사파티클 + 소리
             if (!playNow)
             {
-                Debug.Log("시발 발사");
                 firePart.Play();
                 audioSource.Play();
                 playNow = true;
@@ -25,13 +24,13 @@ public class FireTurretFire : TurretFire
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
 
-            Quaternion thisRot = Quaternion.Euler(0, transform.eulerAngles.y - 180, 0);
-
-            if (!attackDelay)
+            if (Mathf.Abs(Mathf.Abs(transform.rotation.y) - Mathf.Abs(rotation.y)) < 0.1f && !attackDelay)
             {
                 StartCoroutine(Delay(delayTime));
 
+                //데미지
                 target.transform.GetComponent<Living>().OnDmage(firePower);
+                //좀비에게 불 붙히기
             }
         }
         else

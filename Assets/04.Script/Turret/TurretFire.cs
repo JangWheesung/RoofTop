@@ -85,7 +85,6 @@ public class TurretFire : MonoBehaviour
         }
         else
         {
-            Debug.Log("시발 없누");
             target = null;
             lineRenderer.enabled = false;
             firePart.Stop();
