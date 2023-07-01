@@ -24,14 +24,14 @@ public class FireTurretFire : TurretFire
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
 
-            if (Mathf.Abs(Mathf.Abs(transform.rotation.y) - Mathf.Abs(rotation.y)) < 0.1f && !attackDelay)
-            {
-                StartCoroutine(Delay(delayTime));
+            //if (Mathf.Abs(Mathf.Abs(transform.rotation.y) - Mathf.Abs(rotation.y)) < 0.1f && !attackDelay)
+            //{
+            //    StartCoroutine(Delay(delayTime));
 
-                //데미지
-                target.transform.GetComponent<Living>().OnDmage(firePower);
-                //좀비에게 불 붙히기
-            }
+            //    //데미지
+            //    target.transform.GetComponent<Living>().OnDmage(firePower);
+            //    //좀비에게 불 붙히기
+            //}
         }
         else
             playNow = false;

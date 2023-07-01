@@ -115,15 +115,15 @@ public class TurretFire : MonoBehaviour
 
                 Vector3 hitPoint = new Vector3(target.transform.position.x, firePos.position.y, target.transform.position.z);//
 
-                linePoints[0] = firePos.position;//
-                linePoints[1] = hitPoint;//
-                lineRenderer.SetPositions(linePoints);//
+                linePoints[0] = firePos.position;
+                linePoints[1] = hitPoint;
+                lineRenderer.SetPositions(linePoints);
 
                 firePart.Play();
-                audioSource.Play();//
+                audioSource.Play();
 
                 target.transform.GetComponent<Living>().OnDmage(firePower);
-                bloodManager.PopSmoke(hitPoint, thisRot);//
+                bloodManager.PopSmoke(hitPoint, thisRot);
             }
         }
     }

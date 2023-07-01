@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ZombieMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
+    public float moveSpeed;
     [SerializeField] private float rangeRadiue;
     public float attack;
     bool isAttacking;
