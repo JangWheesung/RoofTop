@@ -36,7 +36,11 @@ public class ZombieParticleEmpact : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if (other.tag == "Fire")
+        Debug.Log(1);
+        Debug.Log($"{other}, {other.GetComponent<ParticleSystem>()}");
+        ParticleSystem particleSystem = other.GetComponent<ParticleSystem>();
+        Debug.Log(particleSystem.duration);
+        if (particleSystem.duration == 5)//화염방사기(during값이 "5")
         {
             Debug.Log("Fire?");
             Hunted(firePower);
