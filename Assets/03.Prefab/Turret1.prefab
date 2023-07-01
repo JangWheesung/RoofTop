@@ -15020,7 +15020,6 @@ MonoBehaviour:
   firePower: 1
   delayTime: 0.1
   cost: 50
-  installSource: {fileID: 7810629770735381141}
 --- !u!82 &5429623034674152418
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15033,7 +15032,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 48283adefda01514e851c40517a63d59, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.8
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0

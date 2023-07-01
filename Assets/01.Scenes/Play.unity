@@ -1457,7 +1457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7201171f363906f42b246fb567058f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 50
+  money: 200
 --- !u!114 &283571986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   costs: 64000000c80000002c010000
   turrets:
-  - {fileID: 4789211385024478295, guid: eae8713f55e1827478ecfd380f94070d, type: 3}
+  - {fileID: 4789211385024478295, guid: 7e532614cdd8a1c48a815f8a3f8d054d, type: 3}
   - {fileID: 4789211385024478295, guid: 80a12db21cee7e141a7a673c01e194e7, type: 3}
   - {fileID: 4789211385024478295, guid: e61f078a616d1024fb09079a44f2b6f7, type: 3}
   panel: {fileID: 1923592669}

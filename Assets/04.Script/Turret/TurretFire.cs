@@ -9,22 +9,22 @@ public class TurretFire : MonoBehaviour
     [Header("Object")]
     [SerializeField] private Transform firePos;
     [SerializeField] private GameObject text;
-    [SerializeField] private ParticleSystem firePart;
+    [SerializeField] protected ParticleSystem firePart;
     [SerializeField] private GameObject sponPart;
     [SerializeField] private GameObject installPart;
     [Header("Stats")]
-    [SerializeField] private float radius;
-    [SerializeField] private float firePower;
-    [SerializeField] private float delayTime;
-    [SerializeField] private int cost;
+    [SerializeField] protected float radius;
+    [SerializeField] protected float firePower;
+    [SerializeField] protected float delayTime;
+    [SerializeField] protected int cost;
 
-    private GameObject target;
+    protected GameObject target;
     private PoolingManager bloodManager;
     private LineRenderer lineRenderer;
-    private AudioSource audioSource;
+    protected AudioSource audioSource;
     private AudioSource installSource;
     private Vector3[] linePoints = new Vector3[2];
-    private bool attackDelay;
+    protected bool attackDelay;
 
     bool install;
 
@@ -54,7 +54,7 @@ public class TurretFire : MonoBehaviour
         TurretSell();
     }
 
-    void ZombieRange()
+    protected virtual void ZombieRange()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
         Collider[] notCol = Physics.OverlapSphere(transform.position, 0.7f, LayerMask.GetMask("Enemy"));
@@ -85,6 +85,7 @@ public class TurretFire : MonoBehaviour
         }
         else
         {
+            Debug.Log("시발 없누");
             target = null;
             lineRenderer.enabled = false;
             firePart.Stop();
@@ -92,7 +93,12 @@ public class TurretFire : MonoBehaviour
         }
     }
 
-    void Fire()
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+    protected virtual void Fire()
     {
         if (target != null)
         {
@@ -108,22 +114,22 @@ public class TurretFire : MonoBehaviour
             {
                 StartCoroutine(Delay(delayTime));
 
-                Vector3 hitPoint = new Vector3(target.transform.position.x, firePos.position.y, target.transform.position.z);
+                Vector3 hitPoint = new Vector3(target.transform.position.x, firePos.position.y, target.transform.position.z);//
 
-                linePoints[0] = firePos.position;
-                linePoints[1] = hitPoint;
-                lineRenderer.SetPositions(linePoints);
+                linePoints[0] = firePos.position;//
+                linePoints[1] = hitPoint;//
+                lineRenderer.SetPositions(linePoints);//
 
                 firePart.Play();
-                audioSource.Play();
+                audioSource.Play();//
 
                 target.transform.GetComponent<Living>().OnDmage(firePower);
-                bloodManager.PopSmoke(hitPoint, thisRot);
+                bloodManager.PopSmoke(hitPoint, thisRot);//
             }
         }
     }
 
-    void TurretSell()
+    protected virtual void TurretSell()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, 1, LayerMask.GetMask("Player"));
         if (col.Length > 0)
@@ -139,7 +145,7 @@ public class TurretFire : MonoBehaviour
             text.SetActive(false);
     }
 
-    private IEnumerator Delay(float time)
+    protected IEnumerator Delay(float time)
     {
         attackDelay = true;
         for (int i = 0; i < 4; i++)
