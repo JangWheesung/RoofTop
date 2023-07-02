@@ -16,6 +16,7 @@ public class ZombieParticleEmpact : MonoBehaviour
     private ParticleSystem particle;
     bool isHunted;
     bool particleOn;
+    bool isBurning;
     float burningTime;
     float coolingTime;
     float orgMovespeed;
@@ -32,25 +33,25 @@ public class ZombieParticleEmpact : MonoBehaviour
     {
         burningTime -= Time.deltaTime;
         coolingTime -= Time.deltaTime;
+        Burning();
+        Colling();
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log(1);
-        Debug.Log($"{other}, {other.GetComponent<ParticleSystem>()}");
         ParticleSystem particleSystem = other.GetComponent<ParticleSystem>();
-        Debug.Log(particleSystem.duration);
+
         if (particleSystem.duration == 5)//화염방사기(during값이 "5")
         {
             Debug.Log("Fire?");
+            burningTime = 5;
             Hunted(firePower);
-            Burning();
         }
 
-        if (other.tag == "Ice")
+        if (particleSystem.duration == 1)
         {
+            coolingTime = 5;
             Hunted(icePower);
-            Colling();
         }
     }
 
@@ -71,7 +72,11 @@ public class ZombieParticleEmpact : MonoBehaviour
             {
                 particleOn = true;
                 particle.Play();
-                Hunted(fireDamage);
+            }
+            if (!isBurning)
+            {
+                StartCoroutine(BurnDelay(delayTime));
+                gameObject.GetComponent<Living>().OnDmage(fireDamage);
             }
         }
         else
@@ -106,5 +111,12 @@ public class ZombieParticleEmpact : MonoBehaviour
         isHunted = true;
         yield return new WaitForSeconds(time);
         isHunted = false;
+    }
+
+    IEnumerator BurnDelay(float time)
+    {
+        isBurning = true;
+        yield return new WaitForSeconds(time);
+        isBurning = false;
     }
 }

@@ -18,7 +18,7 @@ public class TurretFire : MonoBehaviour
     [SerializeField] protected float delayTime;
     [SerializeField] protected int cost;
 
-    protected GameObject target;
+    public GameObject target;
     private PoolingManager bloodManager;
     private LineRenderer lineRenderer;
     protected AudioSource audioSource;
@@ -54,7 +54,7 @@ public class TurretFire : MonoBehaviour
         TurretSell();
     }
 
-    protected virtual void ZombieRange()
+    protected void ZombieRange()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
         Collider[] notCol = Physics.OverlapSphere(transform.position, 0.7f, LayerMask.GetMask("Enemy"));
@@ -75,11 +75,14 @@ public class TurretFire : MonoBehaviour
                     target = c.gameObject;
                 }
 
-                float rangeDistance = Vector3.Distance(transform.position, c.transform.position);
-                float targetDistance = Vector3.Distance(transform.position, target.transform.position);
-                if (rangeDistance < targetDistance && !notCatch)//가장 가까이 있는 좀비 찾기
+                if (!notCatch)
                 {
-                    target = c.gameObject;
+                    float rangeDistance = Vector3.Distance(transform.position, c.transform.position);
+                    float targetDistance = Vector3.Distance(transform.position, target.transform.position);
+                    if (rangeDistance < targetDistance)//가장 가까이 있는 좀비 찾기
+                    {
+                        target = c.gameObject;
+                    }
                 }
             }
         }
@@ -128,7 +131,7 @@ public class TurretFire : MonoBehaviour
         }
     }
 
-    protected virtual void TurretSell()
+    protected void TurretSell()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, 1, LayerMask.GetMask("Player"));
         if (col.Length > 0)
