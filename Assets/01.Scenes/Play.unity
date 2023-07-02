@@ -553,7 +553,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turret1
+  m_text: 'Bullet
+
+    Turret'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,
@@ -563,8 +565,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278235903
+  m_fontColor: {r: 1, g: 0.7, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -593,7 +595,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1470,11 +1472,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d7bafeca661384fa7e81ffc546948e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costs: 64000000c80000002c010000
+  costs: 640000007800000096000000
   turrets:
+  - {fileID: 4789211385024478295, guid: eae8713f55e1827478ecfd380f94070d, type: 3}
+  - {fileID: 4789211385024478295, guid: f03f71fd5cc0f744188125d0d60222a5, type: 3}
   - {fileID: 4789211385024478295, guid: 7e532614cdd8a1c48a815f8a3f8d054d, type: 3}
-  - {fileID: 4789211385024478295, guid: 80a12db21cee7e141a7a673c01e194e7, type: 3}
-  - {fileID: 4789211385024478295, guid: e61f078a616d1024fb09079a44f2b6f7, type: 3}
   panel: {fileID: 1923592669}
 --- !u!82 &283571987
 AudioSource:
@@ -17952,7 +17954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost : 300'
+  m_text: 'Cost : 150'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,
@@ -18958,7 +18960,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turret3
+  m_text: 'Ice
+
+    Turret'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,
@@ -18968,8 +18972,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294953984
+  m_fontColor: {r: 0, g: 0.8, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -18998,7 +19002,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -21116,7 +21120,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turret2
+  m_text: 'Fire
+
+    Turret'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,
@@ -21126,8 +21132,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278209791
+  m_fontColor: {r: 1, g: 0.3, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -21156,7 +21162,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -21821,7 +21827,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost : 200'
+  m_text: 'Cost : 120'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,
@@ -22962,7 +22968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11320752, g: 0.084177114, b: 0.06557492, a: 1}
+  m_Color: {r: 0.08770313, g: 0.20754719, b: 0.07910289, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

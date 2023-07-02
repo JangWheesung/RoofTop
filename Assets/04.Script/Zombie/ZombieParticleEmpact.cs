@@ -41,14 +41,13 @@ public class ZombieParticleEmpact : MonoBehaviour
     {
         ParticleSystem particleSystem = other.GetComponent<ParticleSystem>();
 
-        if (particleSystem.duration == 5)//화염방사기(during값이 "5")
+        if (particleSystem.main.duration == 5)//화염포탑(during값이 "5")
         {
-            Debug.Log("Fire?");
             burningTime = 5;
             Hunted(firePower);
         }
 
-        if (particleSystem.duration == 1)
+        if (particleSystem.main.duration == 3)//빙결포탑(during값이 "3")
         {
             coolingTime = 5;
             Hunted(icePower);

@@ -15130,7 +15130,7 @@ MonoBehaviour:
   firePower: 2
   delayTime: 0.1
   cost: 100
-  isSpecialTurret: 1
+  target: {fileID: 0}
 --- !u!82 &4822020298273282026
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15143,7 +15143,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 48283adefda01514e851c40517a63d59, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
