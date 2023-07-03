@@ -41,10 +41,10 @@ public class WaveManager : MonoBehaviour
 
     void NextWave()
     {
-        if (playerHp.health > 30)
-            playerHp.health = 50;
+        if (playerHp.health > playerHp.maxHealth - playerHp.healing)
+            playerHp.health = playerHp.maxHealth;
         else
-            playerHp.health += 20;
+            playerHp.health += playerHp.healing;
 
         wave++;
 

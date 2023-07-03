@@ -27,6 +27,9 @@ public class Panel
 
 public class PlayerHP : Living
 {
+    public int maxHealth;
+    public int healing;
+
     PlayerGun playerGun;
 
     Panel panel;
@@ -35,6 +38,7 @@ public class PlayerHP : Living
     private void Awake()
     {
         playerGun = FindObjectOfType<PlayerGun>();
+        health = maxHealth;
     }
 
     protected override void Die()
@@ -50,7 +54,7 @@ public class PlayerHP : Living
             Cursor.visible = true;
 
             panel.totalTexts[0].text = $"Total Wave : {WaveManager.instance.wave}"; 
-            panel.totalTexts[1].text = $"Total Money : {MoneyManager.instance.money}";
+            panel.totalTexts[1].text = $"Total Money : {MoneyManager.instance.totalMoney}";
             panel.totalTexts[2].text = $"Total Damage : {playerGun.totalDmg}";
 
             panel.textPanel.DOMoveY(420, 1f).OnComplete(() =>

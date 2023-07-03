@@ -55,9 +55,18 @@ public class UIManager : MonoBehaviour
     private GunPanelValue powerPanel;
     [SerializeField] private GameObject powerObj;
 
+    [Header("CorePanel")]
+    private GunPanelValue speedPanel;
+    [SerializeField] private GameObject speedObj;
+    private GunPanelValue hpPanel;
+    [SerializeField] private GameObject hpObj;
+    private GunPanelValue healPanel;
+    [SerializeField] private GameObject healObj;
+
     private GunLevelManager gunLevelManager;
     private PlayerGun playerGun;
     private PlayerHP playerHP;
+    private PlayerMovement playerMovement;
 
     private float maxHp;
 
@@ -66,10 +75,14 @@ public class UIManager : MonoBehaviour
         maxbulletPanel = new GunPanelValue(maxbulletObj);
         magazinePanel = new GunPanelValue(magazineObj);
         powerPanel = new GunPanelValue(powerObj);
+        speedPanel = new GunPanelValue(speedObj);
+        hpPanel = new GunPanelValue(hpObj);
+        healPanel = new GunPanelValue(healObj);
 
         gunLevelManager = FindObjectOfType<GunLevelManager>();
         playerGun = FindObjectOfType<PlayerGun>();
         playerHP = FindObjectOfType<PlayerHP>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
 
         maxHp = playerHP.health;
     }
@@ -120,6 +133,13 @@ public class UIManager : MonoBehaviour
             gunPanelValue.level.text = nowLevel.ToString();
             gunPanelValue.cost.text = levelUpGraph.cost.ToString();
         }
+    }
+
+    void CorePanleUIAll()
+    {
+        speedPanel.ability.text = playerMovement.walkingSpeed.ToString();
+        hpPanel.ability.text = playerHP.maxHealth.ToString();
+        healPanel.ability.text = playerHP.healing.ToString();
     }
 
     public void ExitBtn(string name)
