@@ -64,11 +64,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject healObj;
 
     private GunLevelManager gunLevelManager;
+    private CoreLevelManager coreLevelManager;
+
     private PlayerGun playerGun;
     private PlayerHP playerHP;
     private PlayerMovement playerMovement;
-
-    private float maxHp;
 
     private void Awake()
     {
@@ -80,17 +80,18 @@ public class UIManager : MonoBehaviour
         healPanel = new GunPanelValue(healObj);
 
         gunLevelManager = FindObjectOfType<GunLevelManager>();
+        coreLevelManager = FindObjectOfType<CoreLevelManager>();
+
         playerGun = FindObjectOfType<PlayerGun>();
         playerHP = FindObjectOfType<PlayerHP>();
         playerMovement = FindObjectOfType<PlayerMovement>();
-
-        maxHp = playerHP.health;
     }
 
     private void Update()
     {
         StatUI();
         GunPanleUIAll();
+        CorePanleUIAll();
     }
 
     void StatUI()
@@ -99,7 +100,7 @@ public class UIManager : MonoBehaviour
         bulletText.text = $"{playerGun.nowBullet}/{playerGun.maxBullets}";
         magazineText.text = playerGun.magazine.ToString();
 
-        HPslider.maxValue = maxHp;
+        HPslider.maxValue = playerHP.maxHealth;
         HPslider.value = playerHP.health;
 
         moneyText.text = $"Money {MoneyManager.instance.money}";
@@ -137,9 +138,20 @@ public class UIManager : MonoBehaviour
 
     void CorePanleUIAll()
     {
-        speedPanel.ability.text = playerMovement.walkingSpeed.ToString();
-        hpPanel.ability.text = playerHP.maxHealth.ToString();
-        healPanel.ability.text = playerHP.healing.ToString();
+        speedPanel.level.text = $"Level : {coreLevelManager.speedLevel}";
+        hpPanel.level.text = $"Level : {coreLevelManager.hpLevel}";
+        healPanel.level.text = $"Level : {coreLevelManager.healLevel}";
+
+        speedPanel.ability.text = $"Speed : {playerMovement.walkingSpeed}";
+        hpPanel.ability.text = $"Hp : {playerHP.maxHealth}";
+        healPanel.ability.text = $"Heal : {playerHP.healing}";
+
+        if (coreLevelManager.speedLevel > 4)
+            speedPanel.cost.text = "Max";
+        if (coreLevelManager.hpLevel > 4)
+            hpPanel.cost.text = "Max";
+        if (coreLevelManager.healLevel > 4)
+            healPanel.cost.text = "Max";
     }
 
     public void ExitBtn(string name)

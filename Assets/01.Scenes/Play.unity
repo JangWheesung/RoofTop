@@ -1980,6 +1980,7 @@ GameObject:
   - component: {fileID: 283571982}
   - component: {fileID: 283571981}
   - component: {fileID: 283571984}
+  - component: {fileID: 283571988}
   - component: {fileID: 283571986}
   - component: {fileID: 283571985}
   - component: {fileID: 283571987}
@@ -2042,9 +2043,9 @@ MonoBehaviour:
   maxbulletObj: {fileID: 1872454449}
   magazineObj: {fileID: 859069440}
   powerObj: {fileID: 654933282}
-  speedObj: {fileID: 0}
-  hpObj: {fileID: 0}
-  healObj: {fileID: 0}
+  speedObj: {fileID: 254928925}
+  hpObj: {fileID: 332344205}
+  healObj: {fileID: 1609955270}
 --- !u!4 &283571983
 Transform:
   m_ObjectHideFlags: 0
@@ -2163,6 +2164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 200
+  core: 99
 --- !u!114 &283571986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,6 +2279,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &283571988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283571980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ae442b1dee461409ce484abe6e717d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedUpgradeGraph:
+  - 3
+  - 3.2
+  - 3.5
+  - 3.8
+  - 4.2
+  hpUpgradeGraph: 32000000370000003c0000004100000046000000
+  healUpgradeGraph: 1400000016000000180000001b0000001e000000
+  speedLevel: 1
+  hpLevel: 1
+  healLevel: 1
 --- !u!1 &287679306
 GameObject:
   m_ObjectHideFlags: 0
@@ -22727,9 +22752,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283571984}
-        m_TargetAssemblyTypeName: GunLevelManager, Assembly-CSharp
-        m_MethodName: MaxbulletLevelUp
+      - m_Target: {fileID: 283571988}
+        m_TargetAssemblyTypeName: CoreLevelManager, Assembly-CSharp
+        m_MethodName: SpeedUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24351,7 +24376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1556382010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24996,6 +25021,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   die: 0
+  maxHealth: 0
+  healing: 0
   gameoverPanel: {fileID: 1512375294}
 --- !u!54 &1630682239
 Rigidbody:
@@ -26097,9 +26124,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283571984}
-        m_TargetAssemblyTypeName: GunLevelManager, Assembly-CSharp
-        m_MethodName: MaxbulletLevelUp
+      - m_Target: {fileID: 283571988}
+        m_TargetAssemblyTypeName: CoreLevelManager, Assembly-CSharp
+        m_MethodName: HpUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26888,9 +26915,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283571984}
-        m_TargetAssemblyTypeName: GunLevelManager, Assembly-CSharp
-        m_MethodName: MaxbulletLevelUp
+      - m_Target: {fileID: 283571988}
+        m_TargetAssemblyTypeName: CoreLevelManager, Assembly-CSharp
+        m_MethodName: HealUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

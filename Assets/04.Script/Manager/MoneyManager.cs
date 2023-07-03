@@ -8,6 +8,7 @@ public class MoneyManager : MonoBehaviour
 
     public int money;
     public int totalMoney { get; private set; }
+    public int core;
 
     private void Awake()
         => instance = this;
