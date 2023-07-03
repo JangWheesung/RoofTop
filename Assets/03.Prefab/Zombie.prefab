@@ -1880,11 +1880,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f261654a409a4014dbd182db169fae02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePower: 1
-  fireDamage: 0.2
-  icePower: 0.6
   zombieMaterial: {fileID: 2100000, guid: 9fdb5531bdf185e448dd06dfa8192f8d, type: 2}
   coolingMaterial: {fileID: 2100000, guid: 7cafa2ed6e9134e42bb4f8014f39ec6c, type: 2}
+  fireDamageGraph:
+  - 0.15
+  - 0.18
+  - 0.21
+  - 0.24
+  - 0.27
+  iceSlowingGragh:
+  - 2
+  - 2.2
+  - 2.5
+  - 3
+  - 3.4
   delayTime: 0.1
 --- !u!1 &4710940672626480558
 GameObject:

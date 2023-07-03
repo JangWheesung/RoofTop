@@ -12,19 +12,32 @@ public class TurretFire : MonoBehaviour
     [SerializeField] protected ParticleSystem firePart;
     [SerializeField] private GameObject sponPart;
     [SerializeField] private GameObject installPart;
-    [Header("Stats")]
-    [SerializeField] protected float radius;
-    [SerializeField] protected float firePower;
-    [SerializeField] protected float delayTime;
-    [SerializeField] protected int cost;
 
-    public GameObject target;
+    [Header("Stats")]
+    protected float radius;
+    public float firePower;
+    [SerializeField] protected float delayTime;
+
+    [Header("Texts")]
+    [SerializeField] protected TextMesh levelMesh;
+    [SerializeField] protected TextMesh costMesh;
+
+    [Header("Graph")]
+    [SerializeField] protected int[] upgradeCostGraph;
+    [SerializeField] protected int[] radiusGraph;
+    [SerializeField] protected float[] firepowerGraph;
+
+    protected GameObject target;
     private PoolingManager bloodManager;
     private LineRenderer lineRenderer;
     protected AudioSource audioSource;
     private AudioSource installSource;
+
     private Vector3[] linePoints = new Vector3[2];
     protected bool attackDelay;
+    public int level = 1;
+    protected int upgradeCost;
+    protected int sellCost;
 
     bool install;
 
@@ -51,7 +64,8 @@ public class TurretFire : MonoBehaviour
 
         ZombieRange();
         Fire();
-        TurretSell();
+        TurretUpgrade();
+        TurretGraph();
     }
 
     protected void ZombieRange()
@@ -131,20 +145,45 @@ public class TurretFire : MonoBehaviour
         }
     }
 
-    protected void TurretSell()
+    protected void TurretUpgrade()
     {
         Collider[] col = Physics.OverlapSphere(transform.position, 1, LayerMask.GetMask("Player"));
         if (col.Length > 0)
         {
             text.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E) && MoneyManager.instance.money >= upgradeCost && level < upgradeCostGraph.Length)
+            {
+                MoneyManager.instance.money -= upgradeCost;
+                level++;
+            }
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                MoneyManager.instance.money += cost;
+                MoneyManager.instance.money += sellCost;
                 Destroy(transform.parent.gameObject);
             }
         }
         else
             text.SetActive(false);
+    }
+
+    protected void TurretGraph()
+    {
+        if (level >= upgradeCostGraph.Length)
+        {
+            levelMesh.text = $"Level {level}(Max)";
+            costMesh.gameObject.SetActive(false);
+        }
+        else
+        {
+            levelMesh.text = $"Level {level}";
+            costMesh.text = $"Press \"E\" To Upgrade (cost : {upgradeCost})";
+        }
+
+        upgradeCost = upgradeCostGraph[level - 1];
+        sellCost = upgradeCost / 2;
+
+        radius = radiusGraph[level - 1];
+        firePower = firepowerGraph[level - 1];
     }
 
     protected IEnumerator Delay(float time)

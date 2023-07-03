@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class ZombieParticleEmpact : MonoBehaviour
 {
-    [SerializeField] private float firePower;
-    [SerializeField] private float fireDamage;
-    [SerializeField] private float icePower;
+    [Header("Material")]
     [SerializeField] private Material zombieMaterial;
     [SerializeField] private Material coolingMaterial;
+
+    [Header("Expact")]
+    private float fireDamage;
+    private float iceSlowing;
+    public float[] fireDamageGraph;
+    public float[] iceSlowingGragh;
+
+    [Space(10f)]
     [SerializeField] private float delayTime;
 
     private ZombieMovement zombieMovement;
     private ParticleSystem particle;
+
     bool isHunted;
     bool particleOn;
     bool isBurning;
@@ -39,18 +46,23 @@ public class ZombieParticleEmpact : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        FireTurretFire turretFire = other.transform.parent.parent.parent.GetComponent<FireTurretFire>();
         ParticleSystem particleSystem = other.GetComponent<ParticleSystem>();
 
-        if (particleSystem.main.duration == 5)//화염포탑(during값이 "5")
+        switch (particleSystem.main.duration)
         {
-            burningTime = 5;
-            Hunted(firePower);
-        }
-
-        if (particleSystem.main.duration == 3)//빙결포탑(during값이 "3")
-        {
-            coolingTime = 5;
-            Hunted(icePower);
+            case 5: //화염포탑(during값이 "5")
+                burningTime = 5;
+                Hunted(turretFire.firePower);
+                if(fireDamage < fireDamageGraph[turretFire.level - 1])
+                    fireDamage = fireDamageGraph[turretFire.level - 1];
+                break;
+            case 3: //빙결포탑(during값이 "3")
+                coolingTime = 5;
+                Hunted(turretFire.firePower);
+                if (iceSlowing < iceSlowingGragh[turretFire.level - 1])
+                    iceSlowing = iceSlowingGragh[turretFire.level - 1];
+                break;
         }
     }
 
@@ -82,6 +94,8 @@ public class ZombieParticleEmpact : MonoBehaviour
         {
             particleOn = false;
             particle.Stop();
+
+            fireDamage = 0;
         }
     }
 
@@ -93,7 +107,7 @@ public class ZombieParticleEmpact : MonoBehaviour
             {
                 transform.GetChild(i).GetComponent<SkinnedMeshRenderer>().material = coolingMaterial;
             }
-            zombieMovement.moveSpeed = orgMovespeed / 2;
+            zombieMovement.moveSpeed = orgMovespeed / iceSlowing;
         }
         else
         {
@@ -102,6 +116,7 @@ public class ZombieParticleEmpact : MonoBehaviour
                 transform.GetChild(i).GetComponent<SkinnedMeshRenderer>().material = zombieMaterial;
             }
             zombieMovement.moveSpeed = orgMovespeed;
+            iceSlowing = 1;
         }
     }
 
