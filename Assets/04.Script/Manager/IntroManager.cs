@@ -20,15 +20,12 @@ public class IntroManager : MonoBehaviour
     private void Update()
     {
         IntroEnd();
-        //Debug.Log($"playableDirector.time : {playableDirector.time}");
-        Debug.Log($"playableDirector.duration : {playableDirector.duration}");
     }
 
     void IntroEnd()
     {
         if (playableDirector.time >= playableDirector.duration - 1.5f)
         {
-            Debug.Log("???");
             SceneManager.LoadScene("Play");
         }
     }

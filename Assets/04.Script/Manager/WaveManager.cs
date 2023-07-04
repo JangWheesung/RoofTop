@@ -20,6 +20,7 @@ public class WaveManager : MonoBehaviour
 
     public int wave = 0;
     public bool isWaving;
+    public bool getCore;
 
     void Awake()
     {
@@ -37,6 +38,12 @@ public class WaveManager : MonoBehaviour
     {
         isWaving = enemyCount <= 0 ? false : true;
         pressText.SetActive(!isWaving);
+
+        if (!isWaving && !getCore && wave % 5 == 0 && wave != 0)
+        {
+            getCore = true;
+            MoneyManager.instance.core++;
+        }
     }
 
     void NextWave()
@@ -47,6 +54,7 @@ public class WaveManager : MonoBehaviour
             playerHp.health += playerHp.healing;
 
         wave++;
+        getCore = false;
 
         enemyCount = 7 + (wave * 3);
         enemyAttack = 1 + (wave * 0.125f);

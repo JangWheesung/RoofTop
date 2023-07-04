@@ -45,7 +45,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bulletText;
     [SerializeField] private TextMeshProUGUI magazineText;
     [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI coreText;
     [SerializeField] private Slider HPslider;
+    [SerializeField] private TextMeshProUGUI HPsliderText;
 
     [Header("GunPanel")]
     private GunPanelValue maxbulletPanel;
@@ -102,8 +104,10 @@ public class UIManager : MonoBehaviour
 
         HPslider.maxValue = playerHP.maxHealth;
         HPslider.value = playerHP.health;
+        HPsliderText.text = $"{Mathf.Round(playerHP.health * 10) / 10f} / {playerHP.maxHealth}";
 
         moneyText.text = $"Money {MoneyManager.instance.money}";
+        coreText.text = $"Core {MoneyManager.instance.core}";
     }
 
     void GunPanleUIAll()
