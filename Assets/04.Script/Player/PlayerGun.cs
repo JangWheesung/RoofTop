@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
@@ -23,6 +25,7 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] PoolingManager bloodManager;
 
     [Header("Other")]
+    [SerializeField] GameObject player;
     [SerializeField] GameObject panel;
     [SerializeField] AudioClip fireSound;
     [SerializeField] AudioClip reloadSound;
@@ -127,19 +130,30 @@ public class PlayerGun : MonoBehaviour
     {
         //설치가능 범위지정
         Transform turretPos = transform.parent.parent.GetChild(1);
-        Collider[] col = Physics.OverlapBox(turretPos.position, rangeBox, Quaternion.identity);
+        Collider[] col = Physics.OverlapBox(turretPos.position, rangeBox, turretPos.rotation);
 
-        //if (col.Length > 0)
+
+        //if (Input.GetButtonDown("Fire1"))
         //{
-        //    Debug.Log($"개수 : {col.Length}");
-        //    for (int i = 0; i < col.Length; i++)
-        //    {
-        //        Debug.Log(col[i].name);
-        //    }
+        //    foreach(Collider co in col)
+        //        Debug.Log(co.name);
         //}
 
-        if (Input.GetButtonDown("Fire1") && holdTurret && !panel.activeSelf && col.Length <= 4)
+        bool installY = player.transform.position.y >= 5.7f && player.transform.position.y <= 5.8f ? true : false;
+
+        if (holdTurret)
         {
+            Color green = new Color(0.5f, 1, 0.5f, 0.5f);
+            Color red = new Color(1, 0.25f, 0.25f, 0.5f);
+            ParticleSystem installRange = transform.parent.parent.GetChild(1).GetChild(0).GetChild(4).GetComponent<ParticleSystem>();
+            installRange.startColor = col.Length <= 4 && installY ? green : red;
+        }
+
+        if (Input.GetButtonDown("Fire1") && holdTurret && installY && !panel.activeSelf && col.Length <= 4)
+        {
+            GameObject installRange = transform.parent.parent.GetChild(1).GetChild(0).GetChild(4).gameObject;
+            installRange.SetActive(false);
+
             holdTurret = false;
             transform.parent.parent.GetChild(1).GetChild(0).GetChild(0).GetComponent<TurretFire>().enabled = true;
             transform.parent.parent.GetChild(1).GetChild(0).parent = null;

@@ -1006,7 +1006,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 0, y: -13.999999}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4830,7 +4830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &991708589
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4948,7 +4948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wave 99
+  m_text: Wave
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,
@@ -5393,7 +5393,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Money 9999
+  m_text: 'Money '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,
@@ -6352,7 +6352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1486586609
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6921,7 +6921,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Core 99
+  m_text: Core
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 624e525eac08bed4eaf4982cf6d7dd18, type: 2}
   m_sharedMaterial: {fileID: -1547258639601569106, guid: 624e525eac08bed4eaf4982cf6d7dd18,

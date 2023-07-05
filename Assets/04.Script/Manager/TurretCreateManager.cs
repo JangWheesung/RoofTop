@@ -17,6 +17,7 @@ public class TurretCreateManager : MonoBehaviour
 
     GameObject player;
     Transform playerTurretPos;
+    PlayerMovement playerMovement;
     PlayerGun playerGun;
     AudioSource audioSource;
 
@@ -24,6 +25,7 @@ public class TurretCreateManager : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         playerTurretPos = player.transform.GetChild(1);
+        playerMovement = FindObjectOfType<PlayerMovement>();
         playerGun = player.transform.GetChild(0).GetChild(0).GetComponent<PlayerGun>();
 
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -33,6 +35,9 @@ public class TurretCreateManager : MonoBehaviour
     {
         if (playerGun.holdTurret)
             return;
+
+        Time.timeScale = 1;
+        playerMovement.canMove = true;
 
         if (MoneyManager.instance.money >= costs[i - 1])
         {

@@ -9,10 +9,12 @@ public class OpenPanel : MonoBehaviour
     [SerializeField] private float radius;
     bool range;
 
+    PlayerMovement playerMovement;
     PlayerGun playerGun;
 
     private void Awake()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
         playerGun = FindObjectOfType<PlayerGun>();
     }
 
@@ -34,11 +36,15 @@ public class OpenPanel : MonoBehaviour
 
                 if (panel.activeSelf)
                 {
+                    Time.timeScale = 0;
+                    playerMovement.canMove = false;
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
                 }
                 else
                 {
+                    Time.timeScale = 1;
+                    playerMovement.canMove = true;
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                 }

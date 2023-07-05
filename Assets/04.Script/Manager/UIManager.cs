@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
 
         HPslider.maxValue = playerHP.maxHealth;
         HPslider.value = playerHP.health;
-        HPsliderText.text = $"{Mathf.Round(playerHP.health * 10) / 10f} / {playerHP.maxHealth}";
+        HPsliderText.text = $"{Mathf.Round(playerHP.health * 10f) / 10f} / {playerHP.maxHealth}";
 
         moneyText.text = $"Money {MoneyManager.instance.money}";
         coreText.text = $"Core {MoneyManager.instance.core}";
@@ -118,7 +118,7 @@ public class UIManager : MonoBehaviour
 
         maxbulletPanel.ability.text = playerGun.maxBullets.ToString();
         magazinePanel.ability.text = playerGun.magazine.ToString();
-        powerPanel.ability.text = playerGun.firePower.ToString();
+        powerPanel.ability.text = (Mathf.Round(playerGun.firePower * 10f) / 10f).ToString();
     }
 
     void GunPanleUI(GunPanelValue gunPanelValue, LevelUpGraph levelUpGraph, int nowLevel)

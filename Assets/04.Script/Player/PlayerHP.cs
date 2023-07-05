@@ -55,7 +55,7 @@ public class PlayerHP : Living
 
             panel.totalTexts[0].text = $"Total Wave : {WaveManager.instance.wave}"; 
             panel.totalTexts[1].text = $"Total Money : {MoneyManager.instance.totalMoney}";
-            panel.totalTexts[2].text = $"Total Damage : {playerGun.totalDmg}";
+            panel.totalTexts[2].text = $"Total Damage : {Mathf.Round(playerGun.totalDmg * 10f) / 10f}";
 
             panel.textPanel.DOMoveY(420, 1f).OnComplete(() =>
             {
