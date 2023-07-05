@@ -65,12 +65,17 @@ public class UIManager : MonoBehaviour
     private GunPanelValue healPanel;
     [SerializeField] private GameObject healObj;
 
+    [Header("EscPanel")]
+    [SerializeField] private GameObject escPanel;
+
     private GunLevelManager gunLevelManager;
     private CoreLevelManager coreLevelManager;
 
     private PlayerGun playerGun;
     private PlayerHP playerHP;
     private PlayerMovement playerMovement;
+
+    bool escClick;
 
     private void Awake()
     {
@@ -94,6 +99,7 @@ public class UIManager : MonoBehaviour
         StatUI();
         GunPanleUIAll();
         CorePanleUIAll();
+        EscPanel();
     }
 
     void StatUI()
@@ -125,17 +131,17 @@ public class UIManager : MonoBehaviour
     {
         if (gunPanelValue == maxbulletPanel && nowLevel >= 9)
         {
-            gunPanelValue.level.text = "MAX";
-            gunPanelValue.cost.text = "MAX";
+            gunPanelValue.level.text = "Level : MAX";
+            gunPanelValue.cost.text = "Level : MAX";
         }
         else if (gunPanelValue == powerPanel)
         {
-            gunPanelValue.level.text = nowLevel.ToString();
+            gunPanelValue.level.text = $"Level : {nowLevel}";
             gunPanelValue.cost.text = (10 + ((int)Mathf.Floor((nowLevel - 1) / 2) * 3)).ToString();
         }
         else
         {
-            gunPanelValue.level.text = nowLevel.ToString();
+            gunPanelValue.level.text = $"Level : {nowLevel}";
             gunPanelValue.cost.text = levelUpGraph.cost.ToString();
         }
     }
@@ -156,6 +162,35 @@ public class UIManager : MonoBehaviour
             hpPanel.cost.text = "Max";
         if (coreLevelManager.healLevel > 4)
             healPanel.cost.text = "Max";
+    }
+
+    void EscPanel()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            escClick = !escClick;
+
+            Time.timeScale = escClick ? 0 : 1;
+
+            Cursor.lockState = escClick ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = escClick;
+
+            playerMovement.canMove = !escClick;
+            escPanel.SetActive(escClick);
+        }
+    }
+
+    public void EscPanelFalse()
+    {
+        escClick = false;
+
+        Time.timeScale = 1;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = escClick;
+
+        playerMovement.canMove = !escClick;
+        escPanel.SetActive(escClick);
     }
 
     public void ExitBtn(string name)
